@@ -1,5 +1,36 @@
 import { getProducts } from "./database.js"
+import { getEmployees, getOrders } from "./database.js"
 
+const orders = getOrders()
+const employees = getEmployees()
+
+// PROPS TO DEVIN FOR THE CODE HELP THIS IS HIS SOLUTION NOT MINE 
+document.addEventListener(
+    "click",
+    (clickEvent) => {
+        const itemClicked = clickEvent.target
+        if (itemClicked.id.startsWith("employee")) {
+            const [,employeeId] = itemClicked.id.split("--")
+
+            for (const employee of employees) {
+
+                if (employee.id === parseInt(employeeId)) {
+                    const employeeOrders = orders.filter(
+                        (order) => {
+                            if (order.employeeId === employee.id) {
+                                return true
+                            }
+                        }
+                    )
+                    console.log(employeeOrders)
+
+                    window.alert(` ${employee.name} sold ${employeeOrders.length} products `)
+                }
+            }
+        }
+    }
+)
+// THANKS AGAIN DEVIN FOR THE HELP ^^^
 document.addEventListener(
     "click",
     (clickEvent) => {
